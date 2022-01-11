@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{{modelName}};
-use Illuminate\Http\{{modelName}}Request;
+use App\Http\Requests\{{modelName}}Request;
 
 class {{modelName}}Controller extends Controller
 {

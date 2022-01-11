@@ -5,7 +5,7 @@
         "email": "webmaster@webvelopers.net"
     }],
     "type": "library",
-    "description": "Laravel CRUD Generator is a library, it implements a new command to create: model, migration, factory, seeder, request and CRUD(Create, Read, Update and Delete) controller files with operations, aditional option to generate a API Controller",
+    "description": "Laravel CRUD Generator is a library, it implements a new command to create: model, migration, factory, seeder, request and controller(resources) files with operations, with aditional option to generate a full API Controller.",
     "keywords": [
         "library",
         "laravel",

@@ -162,7 +162,7 @@ class LaravelCRUDGeneratorCommand extends Command
             $this->getStub('Seeder')
         );
 
-        file_put_contents(database_path("/seeds/{$this->model}Seeder.php"), $stub);
+        file_put_contents(database_path("/seeders/{$this->model}Seeder.php"), $stub);
 
         //$hide = exec('composer dump-autoload');
         $this->composer->dumpAutoloads();

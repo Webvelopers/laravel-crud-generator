@@ -63,7 +63,8 @@ class LaravelCRUDGeneratorCommand extends Command
         $this->migration();
         $this->factory();
         $this->seeder();
-        $this->request();
+        $this->storeRequest();
+        $this->updateRequest();
         $this->controller();
 
         $this->info("Laravel CRUD Generator created $this->model model, migration, factory, seeder, request and controller successfully.");

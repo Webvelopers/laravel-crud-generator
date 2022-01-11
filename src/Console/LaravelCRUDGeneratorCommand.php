@@ -103,9 +103,7 @@ class LaravelCRUDGeneratorCommand extends Command
             $this->getStub('Model')
         );
 
-        $model_path = !file_exists(app_path('/Models')) ? '/' : '/Models';
-
-        file_put_contents(app_path("{$model_path}{$this->model}.php"), $stub);
+        file_put_contents(app_path("/Models/{$this->model}.php"), $stub);
     }
 
     /**

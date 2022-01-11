@@ -1,0 +1,48 @@
+{
+    "name": "webvelopers/laravel-crud-generator",
+    "authors": [{
+        "name": "Webvelopers, Inc.",
+        "email": "webmaster@webvelopers.net"
+    }],
+    "type": "library",
+    "description": "Laravel CRUD Generator is a library, it implements a new command to create: model, migration, factory, seeder, request and CRUD(Create, Read, Update and Delete) controller files with operations, aditional option to generate a API Controller",
+    "keywords": [
+        "library",
+        "laravel",
+        "CRUD",
+        "Generator"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.4",
+        "illuminate/database": "^6.0|^7.0|^8.0",
+        "illuminate/console": "^6.0|^7.0|^8.0",
+        "illuminate/support": "^6.0|^7.0|^8.0",
+        "fzaninotto/faker": "^1.9.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.4|^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Webvelopers\\LaravelCRUDGenerator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webvelopers\\LaravelCRUDGenerator\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webvelopers\\LaravelCRUDGenerator\\LaravelCRUDGeneratorServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

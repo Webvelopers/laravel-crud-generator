@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\{{modelName}};
 use Illuminate\Database\Seeder;
 
 class {{modelName}}Seeder extends Seeder
@@ -13,8 +14,8 @@ class {{modelName}}Seeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\{{modelName}}::class, 100)->create()->each(function (${{modelNameSingularLowerCase}}) {
-            //
-        });
+        {{modelName}}::factory()
+            ->count(100)
+            ->create();
     }
 }

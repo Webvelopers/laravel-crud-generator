@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\{{modelName}};
-use App\Http\Requests\{{modelName}}Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Store{{modelName}}Request;
+use App\Http\Requests\Update{{modelName}}Request;
+use App\Models\{{modelName}};
 
 class {{modelName}}Controller extends Controller
 {
@@ -15,18 +16,18 @@ class {{modelName}}Controller extends Controller
      */
     public function index()
     {
-        ${{modelNamePluralLowerCase}} = {{modelName}}::latest()->get();
+        ${{modelNamePluralLowerCase}} = {{modelName}}::all();
 
-        return response()->json(${{modelNamePluralLowerCase}});
+        return response()->json(${{modelNamePluralLowerCase}}, 200);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\{{modelName}}Request $request
+     * @param  \App\Http\Requests\Store{{modelName}}Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store({{modelName}}Request $request)
+    public function store(Store{{modelName}}Request $request)
     {
         ${{modelNameSingularLowerCase}} = {{modelName}}::create($request->all());
 
@@ -36,41 +37,41 @@ class {{modelName}}Controller extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\{{modelName}}  ${{modelNameSingularLowerCase}}
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show({{modelName}} ${{modelNameSingularLowerCase}})
     {
-        ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail($id);
-
-        return response()->json(${{modelNameSingularLowerCase}});
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\{{modelName}}Request $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update({{modelName}}Request $request, $id)
-    {
-        ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail($id);
-        ${{modelNameSingularLowerCase}}->update($request->all());
+        ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail(${{modelNameSingularLowerCase}});
 
         return response()->json(${{modelNameSingularLowerCase}}, 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  \App\Http\Requests\Update{{modelName}}Request $request
+     * @param  \App\Models\{{modelName}}  ${{modelNameSingularLowerCase}}
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function update(Update{{modelName}}Request $request, {{modelName}} ${{modelNameSingularLowerCase}})
     {
-        {{modelName}}::destroy($id);
+        ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail(${{modelNameSingularLowerCase}});
+        ${{modelNameSingularLowerCase}}->update($request->all());
 
         return response()->json(null, 204);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\{{modelName}}  ${{modelNameSingularLowerCase}}
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy({{modelName}} ${{modelNameSingularLowerCase}})
+    {
+        {{modelName}}::destroy(${{modelNameSingularLowerCase}});
+
+        return response()->json(null, 200);
     }
 }

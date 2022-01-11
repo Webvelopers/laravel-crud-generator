@@ -2,7 +2,7 @@
 [![Latest Stable Version](https://poser.pugx.org/webvelopers/laravel-crud-generator/v)](//packagist.org/packages/webvelopers/laravel-crud-generator)[![Total Downloads](https://poser.pugx.org/webvelopers/laravel-crud-generator/downloads)](//packagist.org/packages/webvelopers/laravel-crud-generator)[![License](https://poser.pugx.org/webvelopers/laravel-crud-generator/license)](//packagist.org/packages/webvelopers/laravel-crud-generator)
 
 ## Introduction
-Laravel CRUD Generator is a library, it implements a new command to create; "model", "migration", "factory", "seeder", "request" and "CRUD(Create, Read, Update and Delete) controller" files with operations, aditional option to generate a API Controller.
+Laravel CRUD Generator is a library, it implements a new command to create: model, migration, factory, seeder, request and controller(resources) files with operations, with aditional option to generate a full API Controller.
 
 ## License
 Laravel CRUD Generator is open-sourced software licensed under the [MIT license](LICENSE).

@@ -28,7 +28,7 @@ class LaravelCRUDGeneratorCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Laravel CRUD Generator is a library, it implements a new command to create: model, migration, factory, seeder, request and CRUD(Create, Read, Update and Delete) controller files with operations, aditional option to generate a API Controller';
+    protected $description = 'it implements a new command to create: model, migration, factory, seeder, request and controller(resources) files with operations, with aditional option to generate a full API Controller';
 
     /**
      * The Composer instance.
@@ -167,12 +167,12 @@ class LaravelCRUDGeneratorCommand extends Command
     }
 
     /**
-     * Create the request file
+     * Create the store request file
      *
      * @param string $name
      * @return void
      */
-    protected function request()
+    protected function storeRequest()
     {
         if (!file_exists($path = app_path('/Http/Requests'))) {
             mkdir($path, 0777, true);
@@ -185,10 +185,35 @@ class LaravelCRUDGeneratorCommand extends Command
             [
                 $this->model,
             ],
-            $this->getStub('Request')
+            $this->getStub('StoreRequest')
         );
 
-        file_put_contents(app_path("/Http/Requests/{$this->model}Request.php"), $stub);
+        file_put_contents(app_path("/Http/Requests/Store{$this->model}Request.php"), $stub);
+    }
+
+    /**
+     * Create the update request file
+     *
+     * @param string $name
+     * @return void
+     */
+    protected function updateRequest()
+    {
+        if (!file_exists($path = app_path('/Http/Requests'))) {
+            mkdir($path, 0777, true);
+        }
+
+        $stub = str_replace(
+            [
+                '{{modelName}}',
+            ],
+            [
+                $this->model,
+            ],
+            $this->getStub('UpdateRequest')
+        );
+
+        file_put_contents(app_path("/Http/Requests/Update{$this->model}Request.php"), $stub);
     }
 
     /**
@@ -222,7 +247,7 @@ class LaravelCRUDGeneratorCommand extends Command
 
             File::append(
                 base_path('routes/api.php'),
-                "\nRoute::resource('" . Str::plural(strtolower($this->model)) . "', 'Api\\{$this->model}Controller')->except(['create', 'edit']);\n"
+                "\nRoute::apiResource('" . Str::plural(strtolower($this->model)) . "', \\App\\Http\\Controllers\\Api\\{$this->model}Controller::class);\n"
             );
         } else {
             $stub = str_replace(
@@ -243,7 +268,7 @@ class LaravelCRUDGeneratorCommand extends Command
 
             File::append(
                 base_path('routes/web.php'),
-                "\nRoute::resource('" . Str::plural(strtolower($this->model)) . "', '{$this->model}Controller');\n"
+                "\nRoute::resource('" . Str::plural(strtolower($this->model)) . "', \\App\\Http\\Controllers\\{$this->model}Controller::class);\n"
             );
         }
     }

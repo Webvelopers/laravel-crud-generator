@@ -21,7 +21,7 @@ class LaravelCRUDGeneratorCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'crud:generator {name : model name for example Post} {--api : create a crud api controller}';
+    protected $signature = 'crud:generate {name : model name for example Post} {--api : create a crud api controller}';
 
     /**
      * The console command description.

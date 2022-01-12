@@ -37,10 +37,10 @@ class {{modelName}}Controller extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\{{modelName}}  ${{modelNameSingularLowerCase}}
+     * @param  mixed  ${{modelNameSingularLowerCase}}
      * @return \Illuminate\Http\Response
      */
-    public function show({{modelName}} ${{modelNameSingularLowerCase}})
+    public function show(${{modelNameSingularLowerCase}})
     {
         ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail(${{modelNameSingularLowerCase}});
 
@@ -51,10 +51,10 @@ class {{modelName}}Controller extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\Update{{modelName}}Request $request
-     * @param  \App\Models\{{modelName}}  ${{modelNameSingularLowerCase}}
+     * @param  mixed  ${{modelNameSingularLowerCase}}
      * @return \Illuminate\Http\Response
      */
-    public function update(Update{{modelName}}Request $request, {{modelName}} ${{modelNameSingularLowerCase}})
+    public function update(Update{{modelName}}Request $request, ${{modelNameSingularLowerCase}})
     {
         ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail(${{modelNameSingularLowerCase}});
         ${{modelNameSingularLowerCase}}->update($request->all());
@@ -65,13 +65,13 @@ class {{modelName}}Controller extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\{{modelName}}  ${{modelNameSingularLowerCase}}
+     * @param  mixed  ${{modelNameSingularLowerCase}}
      * @return \Illuminate\Http\Response
      */
-    public function destroy({{modelName}} ${{modelNameSingularLowerCase}})
+    public function destroy(${{modelNameSingularLowerCase}})
     {
         {{modelName}}::destroy(${{modelNameSingularLowerCase}});
 
-        return response()->json(null, 200);
+        return response()->json(null, 204);
     }
 }

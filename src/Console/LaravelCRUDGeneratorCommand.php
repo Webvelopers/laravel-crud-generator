@@ -28,7 +28,7 @@ class LaravelCRUDGeneratorCommand extends Command
      *
      * @var string
      */
-    protected $description = 'it implements a new command to create: model, migration, factory, seeder, request and controller(resources) files with operations, with aditional option to generate a full API Controller';
+    protected $description = 'it implements a new command to create: model, migration, factory, seeder, request and controller(resources) files with operations, with additional option to generate a full API Controller';
 
     /**
      * The Composer instance.
@@ -92,6 +92,10 @@ class LaravelCRUDGeneratorCommand extends Command
      */
     protected function model()
     {
+        if (!file_exists($path = app_path('/Models'))) {
+            mkdir($path, 0777, true);
+        }
+
         $stub = str_replace(
             [
                 '{{modelName}}',
@@ -163,7 +167,6 @@ class LaravelCRUDGeneratorCommand extends Command
 
         file_put_contents(database_path("/seeders/{$this->model}Seeder.php"), $stub);
 
-        //$hide = exec('composer dump-autoload');
         $this->composer->dumpAutoloads();
     }
 

@@ -272,8 +272,8 @@ class PostUpdateRequest extends FormRequest
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
+use App\Http\Requests\PostStoreRequest;
+use App\Http\Requests\PostUpdateRequest;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -301,10 +301,10 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePostRequest $request
+     * @param  \App\Http\Requests\PostStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(PostStoreRequest $request)
     {
         //
     }
@@ -334,11 +334,11 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatePostRequest $request
+     * @param  \App\Http\Requests\PostUpdateRequest $request
      * @param  mixed  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostRequest $request, $post)
+    public function update(PostUpdateRequest $request, $post)
     {
         //
     }
@@ -374,8 +374,8 @@ Route::resource('posts', \App\Http\Controllers\PostController::class);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
+use App\Http\Requests\PostStoreRequest;
+use App\Http\Requests\PostUpdateRequest;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -395,10 +395,10 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePostRequest $request
+     * @param  \App\Http\Requests\PostStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(PostStoreRequest $request)
     {
         $post = Post::create($request->all());
 
@@ -421,11 +421,11 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatePostRequest $request
+     * @param  \App\Http\Requests\PostUpdateRequest $request
      * @param  mixed  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostRequest $request, $post)
+    public function update(PostUpdateRequest $request, $post)
     {
         $post = Post::findOrFail($post);
         $post->update($request->all());

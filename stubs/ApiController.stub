@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Store{{modelName}}Request;
-use App\Http\Requests\Update{{modelName}}Request;
+use App\Http\Requests\{{modelName}}StoreRequest;
+use App\Http\Requests\{{modelName}}UpdateRequest;
 use App\Models\{{modelName}};
 
 class {{modelName}}Controller extends Controller
@@ -24,10 +24,10 @@ class {{modelName}}Controller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Store{{modelName}}Request $request
+     * @param  \App\Http\Requests\{{modelName}}StoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Store{{modelName}}Request $request)
+    public function store({{modelName}}StoreRequest $request)
     {
         ${{modelNameSingularLowerCase}} = {{modelName}}::create($request->all());
 
@@ -50,11 +50,11 @@ class {{modelName}}Controller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Update{{modelName}}Request $request
+     * @param  \App\Http\Requests\{{modelName}}UpdateRequest $request
      * @param  mixed  ${{modelNameSingularLowerCase}}
      * @return \Illuminate\Http\Response
      */
-    public function update(Update{{modelName}}Request $request, ${{modelNameSingularLowerCase}})
+    public function update({{modelName}}UpdateRequest $request, ${{modelNameSingularLowerCase}})
     {
         ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail(${{modelNameSingularLowerCase}});
         ${{modelNameSingularLowerCase}}->update($request->all());

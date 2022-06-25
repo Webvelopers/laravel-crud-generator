@@ -1,5 +1,9 @@
 # Release Notes
 
+## v1.0.4 (2022-06-26)
+
+Fix bugs and update documentation
+
 ## v1.0.3 (2022-06-25)
 
 Fix bugs and update documentation

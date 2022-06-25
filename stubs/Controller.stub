@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Store{{modelName}}Request;
-use App\Http\Requests\Update{{modelName}}Request;
+use App\Http\Requests\{{modelName}}StoreRequest;
+use App\Http\Requests\{{modelName}}UpdateRequest;
 use App\Models\{{modelName}};
 
 class {{modelName}}Controller extends Controller

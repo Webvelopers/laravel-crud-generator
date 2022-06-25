@@ -192,7 +192,7 @@ class LaravelCRUDGeneratorCommand extends Command
             $this->getStub('StoreRequest')
         );
 
-        file_put_contents(app_path("/Http/Requests/Store{$this->model}Request.php"), $stub);
+        file_put_contents(app_path("/Http/Requests/{$this->model}StoreRequest.php"), $stub);
     }
 
     /**
@@ -217,7 +217,7 @@ class LaravelCRUDGeneratorCommand extends Command
             $this->getStub('UpdateRequest')
         );
 
-        file_put_contents(app_path("/Http/Requests/Update{$this->model}Request.php"), $stub);
+        file_put_contents(app_path("/Http/Requests/{$this->model}UpdateRequest.php"), $stub);
     }
 
     /**

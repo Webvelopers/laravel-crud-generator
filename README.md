@@ -70,28 +70,36 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        //
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [];
+    protected $hidden = [
+        //
+    ];
 
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        //
+    ];
 
     /**
      * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $guarded = [];
+    protected $guarded = [
+        //
+    ];
 }
 ```
 
@@ -181,9 +189,7 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        Post::factory()
-            ->count(100)
-            ->create();
+        //Post::factory()->count(100)->create();
     }
 }
 ```
@@ -518,6 +524,22 @@ Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
         ];
     }
 ...
+```
+
+#### Edit Seeder
+
+🗄️ database/seeders/PostSeeder.php
+
+``` php
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Post::factory()->count(100)->create();
+    }
 ```
 
 #### Edit Database Seeder

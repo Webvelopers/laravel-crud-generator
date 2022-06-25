@@ -14,8 +14,6 @@ class {{modelName}}Seeder extends Seeder
      */
     public function run()
     {
-        {{modelName}}::factory()
-            ->count(100)
-            ->create();
+        //{{modelName}}::factory()->count(100)->create();
     }
 }

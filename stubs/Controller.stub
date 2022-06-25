@@ -31,10 +31,10 @@ class {{modelName}}Controller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Store{{modelName}}Request  $request
+     * @param  \App\Http\Requests\{{modelName}}StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Store{{modelName}}Request $request)
+    public function store({{modelName}}StoreRequest $request)
     {
         //
     }
@@ -64,11 +64,11 @@ class {{modelName}}Controller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Update{{modelName}}Request  $request
+     * @param  \App\Http\Requests\{{modelName}}UpdateRequest  $request
      * @param  \App\Models\{{modelName}}  ${{modelNameSingularLowerCase}}
      * @return \Illuminate\Http\Response
      */
-    public function update(Update{{modelName}}Request $request, {{modelName}} ${{modelNameSingularLowerCase}})
+    public function update({{modelName}}UpdateRequest $request, {{modelName}} ${{modelNameSingularLowerCase}})
     {
         //
     }

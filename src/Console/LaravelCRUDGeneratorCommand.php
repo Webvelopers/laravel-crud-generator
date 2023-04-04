@@ -39,9 +39,6 @@ class LaravelCRUDGeneratorCommand extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @param  \Illuminate\Support\Composer  $composer
-     * @return void
      */
     public function __construct(Composer $composer)
     {
@@ -52,10 +49,8 @@ class LaravelCRUDGeneratorCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $this->model = $this->argument('name');
 
@@ -75,22 +70,16 @@ class LaravelCRUDGeneratorCommand extends Command
 
     /**
      * Get content of the stub files
-     *
-     * @param string $type
-     * @return data
      */
-    protected function getStub($type)
+    protected function getStub(string $type): string
     {
         return file_get_contents(__DIR__ . "/../../stubs/$type.stub");
     }
 
     /**
      * Create the model file
-     *
-     * @param string $name
-     * @return void
      */
-    protected function model()
+    protected function model(): void
     {
         if (!file_exists($path = app_path('/Models'))) {
             mkdir($path, 0777, true);
@@ -113,11 +102,8 @@ class LaravelCRUDGeneratorCommand extends Command
 
     /**
      * Create the migration file
-     *
-     * @param string $name
-     * @return void
      */
-    protected function migration()
+    protected function migration(): void
     {
         $this->callSilent('make:migration', [
             'name' => 'Create' . Str::plural(ucfirst($this->model)) . 'Table',
@@ -126,11 +112,8 @@ class LaravelCRUDGeneratorCommand extends Command
 
     /**
      * Create the factory file
-     *
-     * @param string $name
-     * @return void
      */
-    protected function factory()
+    protected function factory(): void
     {
         $stub = str_replace(
             [
@@ -147,11 +130,8 @@ class LaravelCRUDGeneratorCommand extends Command
 
     /**
      * Create the seeder file
-     *
-     * @param string $name
-     * @return void
      */
-    protected function seeder()
+    protected function seeder(): void
     {
         $stub = str_replace(
             [
@@ -172,11 +152,8 @@ class LaravelCRUDGeneratorCommand extends Command
 
     /**
      * Create the store request file
-     *
-     * @param string $name
-     * @return void
      */
-    protected function storeRequest()
+    protected function storeRequest(): void
     {
         if (!file_exists($path = app_path('/Http/Requests'))) {
             mkdir($path, 0777, true);
@@ -192,16 +169,13 @@ class LaravelCRUDGeneratorCommand extends Command
             $this->getStub('StoreRequest')
         );
 
-        file_put_contents(app_path("/Http/Requests/{$this->model}StoreRequest.php"), $stub);
+        file_put_contents(app_path("/Http/Requests/Store{$this->model}Request.php"), $stub);
     }
 
     /**
      * Create the update request file
-     *
-     * @param string $name
-     * @return void
      */
-    protected function updateRequest()
+    protected function updateRequest(): void
     {
         if (!file_exists($path = app_path('/Http/Requests'))) {
             mkdir($path, 0777, true);
@@ -217,16 +191,13 @@ class LaravelCRUDGeneratorCommand extends Command
             $this->getStub('UpdateRequest')
         );
 
-        file_put_contents(app_path("/Http/Requests/{$this->model}UpdateRequest.php"), $stub);
+        file_put_contents(app_path("/Http/Requests/Update{$this->model}Request.php"), $stub);
     }
 
     /**
      * Create the controller file and edit the route
-     *
-     * @param string $name
-     * @return void
      */
-    protected function controller()
+    protected function controller(): void
     {
         if ($this->option('api')) {
             if (!file_exists($path = app_path('/Http/Controllers/Api'))) {

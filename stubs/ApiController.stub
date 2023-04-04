@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\{{modelName}}StoreRequest;
-use App\Http\Requests\{{modelName}}UpdateRequest;
+use App\Http\Requests\Store{{modelName}}Request;
+use App\Http\Requests\Update{{modelName}}Request;
 use App\Models\{{modelName}};
+
+use Illuminate\Http\JsonResponse;
 
 class {{modelName}}Controller extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
         ${{modelNamePluralLowerCase}} = {{modelName}}::all();
 
@@ -23,11 +23,8 @@ class {{modelName}}Controller extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\{{modelName}}StoreRequest $request
-     * @return \Illuminate\Http\Response
      */
-    public function store({{modelName}}StoreRequest $request)
+    public function store(Store{{modelName}}Request $request): JsonResponse
     {
         ${{modelNameSingularLowerCase}} = {{modelName}}::create($request->all());
 
@@ -36,11 +33,8 @@ class {{modelName}}Controller extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  mixed  ${{modelNameSingularLowerCase}}
-     * @return \Illuminate\Http\Response
      */
-    public function show(${{modelNameSingularLowerCase}})
+    public function show(int ${{modelNameSingularLowerCase}}): JsonResponse
     {
         ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail(${{modelNameSingularLowerCase}});
 
@@ -49,12 +43,8 @@ class {{modelName}}Controller extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\{{modelName}}UpdateRequest $request
-     * @param  mixed  ${{modelNameSingularLowerCase}}
-     * @return \Illuminate\Http\Response
      */
-    public function update({{modelName}}UpdateRequest $request, ${{modelNameSingularLowerCase}})
+    public function update(Update{{modelName}}Request $request, int ${{modelNameSingularLowerCase}}): JsonResponse
     {
         ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail(${{modelNameSingularLowerCase}});
         ${{modelNameSingularLowerCase}}->update($request->all());
@@ -64,11 +54,8 @@ class {{modelName}}Controller extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  mixed  ${{modelNameSingularLowerCase}}
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(${{modelNameSingularLowerCase}})
+    public function destroy(int ${{modelNameSingularLowerCase}}): JsonResponse
     {
         {{modelName}}::destroy(${{modelNameSingularLowerCase}});
 

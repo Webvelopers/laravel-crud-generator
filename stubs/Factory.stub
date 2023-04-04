@@ -14,7 +14,7 @@ class {{modelName}}Factory extends Factory
     public function definition()
     {
         return [
-            //
+            //'field' => fake()->word(),
         ];
     }
 }

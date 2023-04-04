@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Laravel CRUD Generator is a library, it implements a new command to create: model, migration, factory, seeder, request and controller(resources) files with operations, with additional option to generate a full API Controller.
+Laravel CRUD Generator is a free library, it implements a new command to create: model, migration, factory, seeder, request and controller(resources) files with operations, with additional option to generate a full API Controller.
 
 ## License
 
@@ -24,20 +24,12 @@ composer require webvelopers/laravel-crud-generator
 
 ### 2. Generate all files with a one line of commands
 
-For example, create a new Post
+Create a new Post
 
 🔳 terminal/cmd
 
 ``` bash
 php artisan crud:generator Post
-```
-
-Or create a new Post with API Controller
-
-🔳 terminal/cmd
-
-``` bash
-php artisan crud:generator Post --api
 ```
 
 ### 3. Files Generated
@@ -105,7 +97,7 @@ class Post extends Model
 
 #### Migration
 
-🗄️ database/migrations/2022_06_25_000000_create_posts_table.php
+🗄️ database/migrations/2023_04_04_211632_create_posts_table.php
 
 ``` php
 <?php
@@ -114,14 +106,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
@@ -131,14 +121,12 @@ class CreatePostsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('posts');
     }
-}
+};
 ```
 
 #### Factory
@@ -156,13 +144,11 @@ class PostFactory extends Factory
 {
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            //        
+            //'field' => fake()->word(),
         ];
     }
 }
@@ -184,10 +170,8 @@ class PostSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         //Post::factory()->count(100)->create();
     }
@@ -196,7 +180,7 @@ class PostSeeder extends Seeder
 
 #### Store Request
 
-🗄️ app/Http/Requests/PostStoreRequest.php
+🗄️ app/Http/Requests/StorePostRequest.php
 
 ``` php
 <?php
@@ -205,24 +189,20 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostStoreRequest extends FormRequest
+class StorePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             //
@@ -233,7 +213,7 @@ class PostStoreRequest extends FormRequest
 
 #### Update Request
 
-🗄️ app/Http/Requests/PostUpdateRequest.php
+🗄️ app/Http/Requests/UpdatePostRequest.php
 
 ``` php
 <?php
@@ -242,24 +222,20 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostUpdateRequest extends FormRequest
+class UpdatePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             //
@@ -277,85 +253,66 @@ class PostUpdateRequest extends FormRequest
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\PostStoreRequest;
-use App\Http\Requests\PostUpdateRequest;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+
+use Illuminate\Http\Response;
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): Response
     {
         //
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): Response
     {
         //
     }
-    
+
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\PostStoreRequest $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(PostStoreRequest $request)
+    public function store(StorePostRequest $request): Response
     {
         //
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  mixed  $post
-     * @return \Illuminate\Http\Response
      */
-    public function show($post)
+    public function show(int $post): Response
     {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(int $post): Response
     {
         //
     }
-    
+
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\PostUpdateRequest $request
-     * @param  mixed  $post
-     * @return \Illuminate\Http\Response
      */
-    public function update(PostUpdateRequest $request, $post)
+    public function update(UpdatePostRequest $request, int $post): Response
     {
         //
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  mixed  $post
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($post)
+    public function destroy(int $post): Response
     {
         //
     }
@@ -370,9 +327,19 @@ class PostController extends Controller
 Route::resource('posts', \App\Http\Controllers\PostController::class);
 ```
 
+### 3.1 Files extra with API option
+
+Create a new Comment with API Controller
+
+🔳 terminal/cmd
+
+``` bash
+php artisan crud:generator Comment --api
+```
+
 #### Controller API
 
-🗄️ app/Http/Controllers/Api/PostController.php
+🗄️ app/Http/Controllers/Api/CommentController.php
 
 ``` php
 <?php
@@ -380,74 +347,61 @@ Route::resource('posts', \App\Http\Controllers\PostController::class);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostStoreRequest;
-use App\Http\Requests\PostUpdateRequest;
-use App\Models\Post;
+use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\UpdateCommentRequest;
+use App\Models\Comment;
 
-class PostController extends Controller
+use Illuminate\Http\JsonResponse;
+
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        $posts = Post::all();
+        $comments = Comment::all();
 
-        return response()->json($posts, 200);
+        return response()->json($comments, 200);
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\PostStoreRequest $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(PostStoreRequest $request)
+    public function store(StoreCommentRequest $request): JsonResponse
     {
-        $post = Post::create($request->all());
+        $comment = Comment::create($request->all());
 
-        return response()->json($post, 201);
+        return response()->json($comment, 201);
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  mixed  $post
-     * @return \Illuminate\Http\Response
      */
-    public function show($post)
+    public function show(int $comment): JsonResponse
     {
-        $post = Post::findOrFail($post);
+        $comment = Comment::findOrFail($comment);
 
-        return response()->json($post, 200);
+        return response()->json($comment, 200);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\PostUpdateRequest $request
-     * @param  mixed  $post
-     * @return \Illuminate\Http\Response
      */
-    public function update(PostUpdateRequest $request, $post)
+    public function update(UpdateCommentRequest $request, int $comment): JsonResponse
     {
-        $post = Post::findOrFail($post);
-        $post->update($request->all());
+        $comment = Comment::findOrFail($comment);
+        $comment->update($request->all());
 
         return response()->json(null, 204);
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  mixed  $post
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($post)
+    public function destroy(int $comment): JsonResponse
     {
-        Post::destroy($post);
+        Comment::destroy($comment);
 
         return response()->json(null, 204);
     }
@@ -459,7 +413,7 @@ class PostController extends Controller
 🗄️ routes/api.php
 
 ``` php
-Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
+Route::apiResource('comments', \App\Http\Controllers\Api\CommentController::class);
 ```
 
 ### 4 Easy Edit Files Generated
@@ -484,16 +438,14 @@ Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
 
 #### Edit Migration
 
-🗄️ database/migrations/2022_06_25_000000_create_posts_table.php
+🗄️ database/migrations/2023_04_04_211632_create_posts_table.php
 
 ``` php
 ...
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
@@ -513,14 +465,12 @@ Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
 ...
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence,
-            'content' => $this->faker->paragraph,
+            'title' => fake()->words(3, true),
+            'content' => fake()->paragraphs(5, true),
         ];
     }
 ...
@@ -533,10 +483,8 @@ Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
 ``` php
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         Post::factory()->count(100)->create();
     }
@@ -549,28 +497,32 @@ Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
 ``` php
     /**
      * Seed the application's database.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         // \App\Models\User::factory(10)->create();
-        $this->call(PostSeeder::class);
+
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+        $this->call([
+            PostSeeder::class,
+        ]);
     }
 ```
 
 #### Edit Store Request
 
-🗄️ app/Http/Requests/PostStoreRequest.php
+🗄️ app/Http/Requests/StorePostRequest.php
 
 ```php
 ...
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'title' => 'required|string|max:255',
@@ -582,16 +534,14 @@ Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
 
 #### Edit Update Request
 
-🗄️ app/Http/Requests/PostUpdateRequest.php
+🗄️ app/Http/Requests/UpdatePostRequest.php
 
 ```php
 ...
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'title' => 'required|string|max:255',

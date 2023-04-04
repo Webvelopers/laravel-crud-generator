@@ -1,5 +1,9 @@
 # Release Notes
 
+## v1.0.4 (2023-04-04)
+
+Update for Laravel 10
+
 ## v1.0.4 (2022-06-26)
 
 Fix bugs and update documentation

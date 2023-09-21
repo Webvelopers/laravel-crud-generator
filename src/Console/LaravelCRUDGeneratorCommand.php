@@ -54,13 +54,47 @@ class LaravelCRUDGeneratorCommand extends Command
     {
         $this->model = $this->argument('name');
 
-        $this->model();
+        $this->info("Laravel CRUD Generator is creating $this->model model.");
+        $model = $this->model();
+        $this->info("Laravel CRUD Generator created $this->model model file: '$model'.");
+
+        $this->line('');
+
+        $this->info("Laravel CRUD Generator is creating $this->model migration.");
         $this->migration();
-        $this->factory();
-        $this->seeder();
-        $this->storeRequest();
-        $this->updateRequest();
-        $this->controller();
+        $this->info("Laravel CRUD Generator created $this->model migration.");
+
+        $this->line('');
+
+        $this->info("Laravel CRUD Generator is creating $this->model factory.");
+        $factory = $this->factory();
+        $this->info("Laravel CRUD Generator created $this->model factory file: '$factory'");
+
+        $this->line('');
+
+        $this->info("Laravel CRUD Generator is creating $this->model seeder.");
+        $seeder = $this->seeder();
+        $this->info("Laravel CRUD Generator created $this->model seeder file: '$seeder'");
+
+        $this->line('');
+
+        $this->info("Laravel CRUD Generator is creating $this->model store request.");
+        $storeRequest = $this->storeRequest();
+        $this->info("Laravel CRUD Generator created $this->model store request file: '$storeRequest'");
+
+        $this->line('');
+
+        $this->info("Laravel CRUD Generator is creating $this->model update request.");
+        $updateRequest = $this->updateRequest();
+        $this->info("Laravel CRUD Generator created $this->model update request file: '$updateRequest'");
+
+        $this->line('');
+
+        $this->info("Laravel CRUD Generator is creating $this->model controller.");
+        $controller = $this->controller();
+        $this->info("Laravel CRUD Generator created $this->model controller file: '$controller'");
+
+        $this->line('');
 
         $this->info("Laravel CRUD Generator created $this->model model, migration, factory, seeder, request and controller successfully.");
         $this->comment('Please edit migration, factory and seeder files before to run "php artisan migrate --seed" command.');
@@ -79,7 +113,7 @@ class LaravelCRUDGeneratorCommand extends Command
     /**
      * Create the model file
      */
-    protected function model(): void
+    protected function model(): string
     {
         if (!file_exists($path = app_path('/Models'))) {
             mkdir($path, 0777, true);
@@ -98,6 +132,8 @@ class LaravelCRUDGeneratorCommand extends Command
         );
 
         file_put_contents(app_path("/Models/{$this->model}.php"), $stub);
+
+        return app_path("/Models/{$this->model}.php");
     }
 
     /**
@@ -105,7 +141,7 @@ class LaravelCRUDGeneratorCommand extends Command
      */
     protected function migration(): void
     {
-        $this->callSilent('make:migration', [
+        $this->call('make:migration', [
             'name' => 'Create' . Str::plural(ucfirst($this->model)) . 'Table',
         ]);
     }
@@ -113,7 +149,7 @@ class LaravelCRUDGeneratorCommand extends Command
     /**
      * Create the factory file
      */
-    protected function factory(): void
+    protected function factory(): string
     {
         $stub = str_replace(
             [
@@ -126,12 +162,14 @@ class LaravelCRUDGeneratorCommand extends Command
         );
 
         file_put_contents(database_path("/factories/{$this->model}Factory.php"), $stub);
+
+        return database_path("/factories/{$this->model}Factory.php");
     }
 
     /**
      * Create the seeder file
      */
-    protected function seeder(): void
+    protected function seeder(): string
     {
         $stub = str_replace(
             [
@@ -148,12 +186,14 @@ class LaravelCRUDGeneratorCommand extends Command
         file_put_contents(database_path("/seeders/{$this->model}Seeder.php"), $stub);
 
         $this->composer->dumpAutoloads();
+
+        return database_path("/seeders/{$this->model}Seeder.php");
     }
 
     /**
      * Create the store request file
      */
-    protected function storeRequest(): void
+    protected function storeRequest(): string
     {
         if (!file_exists($path = app_path('/Http/Requests'))) {
             mkdir($path, 0777, true);
@@ -170,12 +210,14 @@ class LaravelCRUDGeneratorCommand extends Command
         );
 
         file_put_contents(app_path("/Http/Requests/Store{$this->model}Request.php"), $stub);
+
+        return app_path("/Http/Requests/Store{$this->model}Request.php");
     }
 
     /**
      * Create the update request file
      */
-    protected function updateRequest(): void
+    protected function updateRequest(): string
     {
         if (!file_exists($path = app_path('/Http/Requests'))) {
             mkdir($path, 0777, true);
@@ -192,12 +234,14 @@ class LaravelCRUDGeneratorCommand extends Command
         );
 
         file_put_contents(app_path("/Http/Requests/Update{$this->model}Request.php"), $stub);
+
+        return app_path("/Http/Requests/Update{$this->model}Request.php");
     }
 
     /**
      * Create the controller file and edit the route
      */
-    protected function controller(): void
+    protected function controller(): string
     {
         if ($this->option('api')) {
             if (!file_exists($path = app_path('/Http/Controllers/Api'))) {
@@ -224,6 +268,8 @@ class LaravelCRUDGeneratorCommand extends Command
                 base_path('routes/api.php'),
                 "\nRoute::apiResource('" . Str::plural(strtolower($this->model)) . "', \\App\\Http\\Controllers\\Api\\{$this->model}Controller::class);\n"
             );
+
+            return app_path("/Http/Controllers/Api/{$this->model}Controller.php");
         } else {
             $stub = str_replace(
                 [
@@ -245,6 +291,8 @@ class LaravelCRUDGeneratorCommand extends Command
                 base_path('routes/web.php'),
                 "\nRoute::resource('" . Str::plural(strtolower($this->model)) . "', \\App\\Http\\Controllers\\{$this->model}Controller::class);\n"
             );
+
+            return app_path("/Http/Controllers/{$this->model}Controller.php");
         }
     }
 }

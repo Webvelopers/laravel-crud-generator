@@ -54,50 +54,36 @@ class LaravelCRUDGeneratorCommand extends Command
     {
         $this->model = $this->argument('name');
 
-        $this->info("Laravel CRUD Generator is creating $this->model model.");
+        $this->components->info("Laravel CRUD Generator is creating $this->model model.");
         $model = $this->model();
-        $this->info("Laravel CRUD Generator created $this->model model file: '$model'.");
+        $this->components->info("Laravel CRUD Generator created $this->model model file: '$model'.");
 
-        $this->line('');
-
-        $this->info("Laravel CRUD Generator is creating $this->model migration.");
+        $this->components->info("Laravel CRUD Generator is creating $this->model migration.");
         $this->migration();
-        $this->info("Laravel CRUD Generator created $this->model migration.");
+        $this->components->info("Laravel CRUD Generator created $this->model migration.");
 
-        $this->line('');
-
-        $this->info("Laravel CRUD Generator is creating $this->model factory.");
+        $this->components->info("Laravel CRUD Generator is creating $this->model factory.");
         $factory = $this->factory();
-        $this->info("Laravel CRUD Generator created $this->model factory file: '$factory'");
+        $this->components->info("Laravel CRUD Generator created $this->model factory file: '$factory'");
 
-        $this->line('');
-
-        $this->info("Laravel CRUD Generator is creating $this->model seeder.");
+        $this->components->info("Laravel CRUD Generator is creating $this->model seeder.");
         $seeder = $this->seeder();
-        $this->info("Laravel CRUD Generator created $this->model seeder file: '$seeder'");
+        $this->components->info("Laravel CRUD Generator created $this->model seeder file: '$seeder'");
 
-        $this->line('');
-
-        $this->info("Laravel CRUD Generator is creating $this->model store request.");
+        $this->components->info("Laravel CRUD Generator is creating $this->model store request.");
         $storeRequest = $this->storeRequest();
-        $this->info("Laravel CRUD Generator created $this->model store request file: '$storeRequest'");
+        $this->components->info("Laravel CRUD Generator created $this->model store request file: '$storeRequest'");
 
-        $this->line('');
-
-        $this->info("Laravel CRUD Generator is creating $this->model update request.");
+        $this->components->info("Laravel CRUD Generator is creating $this->model update request.");
         $updateRequest = $this->updateRequest();
-        $this->info("Laravel CRUD Generator created $this->model update request file: '$updateRequest'");
+        $this->components->info("Laravel CRUD Generator created $this->model update request file: '$updateRequest'");
 
-        $this->line('');
-
-        $this->info("Laravel CRUD Generator is creating $this->model controller.");
+        $this->components->info("Laravel CRUD Generator is creating $this->model controller.");
         $controller = $this->controller();
-        $this->info("Laravel CRUD Generator created $this->model controller file: '$controller'");
+        $this->components->info("Laravel CRUD Generator created $this->model controller file: '$controller'");
 
-        $this->line('');
-
-        $this->info("Laravel CRUD Generator created $this->model model, migration, factory, seeder, request and controller successfully.");
-        $this->comment('Please edit migration, factory and seeder files before to run "php artisan migrate --seed" command.');
+        $this->components->info("Laravel CRUD Generator created $this->model model, migration, factory, seeder, request and controller successfully.");
+        $this->components->comment('Please edit migration, factory and seeder files before to run "php artisan migrate --seed" command.');
 
         return 1;
     }

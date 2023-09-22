@@ -83,7 +83,7 @@ class LaravelCRUDGeneratorCommand extends Command
         $this->components->info("Laravel CRUD Generator created $this->model controller file: '$controller'");
 
         $this->components->info("Laravel CRUD Generator created $this->model model, migration, factory, seeder, request and controller successfully.");
-        $this->components->comment('Please edit migration, factory and seeder files before to run "php artisan migrate --seed" command.');
+        $this->comment('Please edit migration, factory and seeder files before to run "php artisan migrate --seed" command.');
 
         return 1;
     }

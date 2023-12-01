@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Laravel CRUD Generator is a library, it implements a new command to create: model, migration, factory, seeder, request and controller(resources) files with operations, with additional option to generate a full API Controller.
+Laravel CRUD Generator is a library, it implements a new command to create: model, migration, factory, seeder, request, controller(resources) and test files with operations, with additional option to generate a full API Controller.
 
 ## License
 
@@ -460,6 +460,31 @@ class PostController extends Controller
 
 ``` php
 Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
+```
+
+#### Test
+
+✍🏻 Tests/Feature/PostTest.php
+
+``` php
+<?php
+
+namespace Tests\Feature;
+
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
+
+class PostTest extends TestCase
+{
+    /**
+     * A basic feature test post.
+     */
+    public function test_post(): void
+    {
+        //
+    }
+}
 ```
 
 ### 4 Easy Edit Files Generated

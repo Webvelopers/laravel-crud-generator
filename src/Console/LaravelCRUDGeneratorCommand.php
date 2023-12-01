@@ -28,7 +28,7 @@ class LaravelCRUDGeneratorCommand extends Command
      *
      * @var string
      */
-    protected $description = 'it implements a new command to create: model, migration, factory, seeder, request and controller(resources) files with operations, with additional option to generate a full API Controller';
+    protected $description = 'it implements a new command to create: model, migration, factory, seeder, request, controller(resources) and test files with operations, with additional option to generate a full API Controller';
 
     /**
      * The Composer instance.
@@ -80,6 +80,10 @@ class LaravelCRUDGeneratorCommand extends Command
         $this->components->info("Laravel CRUD Generator is creating $this->model controller.");
         $controller = $this->controller();
         $this->components->info("Controller [$controller] created successfully.");
+
+        $this->components->info("Laravel CRUD Generator is creating $this->model test.");
+        $controller = $this->test();
+        $this->components->info("Test [$controller] created successfully.");
 
         $this->components->info("Laravel CRUD Generator created $this->model model, migration, factory, seeder, request and controller successfully.");
         $this->comment('Please edit migration, factory and seeder files before to run "php artisan migrate --seed" command.');
@@ -250,7 +254,7 @@ class LaravelCRUDGeneratorCommand extends Command
             file_put_contents(app_path("/Http/Controllers/Api/{$this->model}Controller.php"), $stub);
 
             File::append(
-                base_path('routes/api.php'),
+                base_path('/routes/api.php'),
                 "\nRoute::apiResource('" . Str::plural(strtolower($this->model)) . "', \\App\\Http\\Controllers\\Api\\{$this->model}Controller::class);\n"
             );
 
@@ -273,11 +277,37 @@ class LaravelCRUDGeneratorCommand extends Command
             file_put_contents(app_path("/Http/Controllers/{$this->model}Controller.php"), $stub);
 
             File::append(
-                base_path('routes/web.php'),
+                base_path('/routes/web.php'),
                 "\nRoute::resource('" . Str::plural(strtolower($this->model)) . "', \\App\\Http\\Controllers\\{$this->model}Controller::class);\n"
             );
 
             return app_path("/Http/Controllers/{$this->model}Controller.php");
         }
+    }
+
+    /**
+     * Create the test file
+     */
+    protected function test(): string
+    {
+        if (!file_exists($path = base_path('/Tests/Feature'))) {
+            mkdir($path, 0777, true);
+        }
+
+        $stub = str_replace(
+            [
+                '{{modelName}}',
+                '{{modelNameSingularLowerCase}}',
+            ],
+            [
+                $this->model,
+                strtolower($this->model),
+            ],
+            $this->getStub('Test')
+        );
+
+        file_put_contents(base_path("/Tests/Feature/{$this->model}Test.php"), $stub);
+
+        return base_path("/Tests/Feature/{$this->model}Test.php");
     }
 }
